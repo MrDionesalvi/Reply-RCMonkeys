@@ -67,12 +67,16 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
 
     silver_points = {}
     distanze_sp = {}
-
+    lista_sp = []
     for _ in range(SM):
         line = file.readline().split(" ")
         i, j, points = int(line[0])-1, int(line[1])-1, int(line[2]) 
         silver_points[f"{i}_{j}"] = points
         matrix[i][j] = "S"
+        lista_sp.append([i, j])
+        distanze_sp[f"{i}_{j}"] = []
+
+    distanza_sp(lista_sp, distanze_sp)
 
     costo_blocchi = {}
     disponibilita_blocchi = {}
@@ -86,5 +90,4 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
         disponibilita_blocchi[i] = disponibile
 
 
-print(costo_blocchi, disponibilita_blocchi)
         
