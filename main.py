@@ -1,6 +1,5 @@
 file_path = "input/00-trailer.txt"
 
-<<<<<<< HEAD
 with open(file_path, "r", encoding='utf-8-sig') as file:
     lines = file.readlines()
 
@@ -18,9 +17,3 @@ print(f"H: {H}")
 print(f"GN: {GN}")
 print(f"SM: {SM}")
 print(f"TL: {TL}")
-=======
-with open(file_path, "r") as file:
-    content = file.read()
-
-print(content)
->>>>>>> parent of b15ab29 (ciao)
