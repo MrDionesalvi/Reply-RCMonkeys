@@ -100,5 +100,46 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
 
     distanza_gp_to_sp(lista_gp, lista_sp, gp_to_sp)
 
-print(distanze_gp)
-    
+
+
+start = lista_gp[0]
+return_list = []
+
+PLIST = lista_gp + lista_sp
+
+PLIST = sorted(PLIST, key=lambda coord: (coord[0], coord[1]))
+
+
+def get_path(start, end):
+    path = []
+    x1, y1 = start
+    x2, y2 = end
+    dx = 1 if x2 > x1 else -1
+    dy = 1 if y2 > y1 else -1
+    x, y = x1, y1
+    while x != x2 or y != y2:
+        path.append([x, y])
+        if x != x2:
+            x += dx
+        if y != y2:
+            y += dy
+    path.append([x2, y2])
+    return path
+
+for i in range(len(PLIST) - 1):
+    path = get_path(PLIST[i], PLIST[i+1])
+    return_list.extend(path)
+
+bau = set()
+realRET = []
+for element in return_list:
+    miao = f"{element[0]}_{element[1]}"
+    if not miao in bau:
+        bau.add(miao)
+        realRET.append(element)
+    else:
+        continue
+
+
+
+print(realRET)
