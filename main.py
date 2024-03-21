@@ -11,6 +11,15 @@ def distanza_gp(lista_gp, diz):  #return = [gp_diverso, row_d, col_d, dista]
     
             diz[f"{lista_gp[j][0]}_{lista_gp[j][1]}"].append([f"{lista_gp[i][0]}_{lista_gp[i][1]}", row_distance, col_distance, distance])
 
+def distanza_sp(lista_sp, diz):
+    for i in range(len(lista_sp)-1):
+        for j in range(i+1, len(lista_sp)):
+            row_distance = abs(lista_sp[i][1] - lista_sp[j][1])
+            col_distance = abs(lista_sp[i][0] - lista_sp[j][0])
+            distance = row_distance + col_distance
+            diz[f"{lista_sp[i][0]}_{lista_sp[i][1]}"].append([f"{lista_sp[j][0]}_{lista_sp[j][1]}", row_distance, col_distance, distance])
+    
+            diz[f"{lista_sp[j][0]}_{lista_sp[j][1]}"].append([f"{lista_sp[i][0]}_{lista_sp[i][1]}", row_distance, col_distance, distance])
 
 with open(file_path, "r", encoding='utf-8-sig') as file:
     line = file.readline()
@@ -38,6 +47,7 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
     print(distanze_gp)
 
     silver_points = {}
+    distanze_sp = {}
 
     for _ in range(SM):
         line = file.readline().split(" ")
@@ -57,11 +67,5 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
         disponibilita_blocchi[i] = disponibile
 
 
-
-
-distanza_gp()
-
-
-print(distanze_gp)
-    
+print(costo_blocchi, disponibilita_blocchi)
         
