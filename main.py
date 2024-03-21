@@ -1,4 +1,4 @@
-file_path = "input/00-trailer.txt"
+file_path = "input/01-comedy.txt"
 
 
 tile_rules = {
@@ -60,14 +60,14 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
     SM = int(values[3])
     TL = int(values[4])
 
-    matrix = [[0 for _ in range(W+1)] for _ in range(H+1)]
+    matrix = [[" " for _ in range(H+1)] for _ in range(W+1)]
+    print(len(matrix), " || ", len(matrix[0]))
 
     lista_gp = []
     distanze_gp = {}
     for _ in range(GN):
         line = file.readline().split(" ")
-        i, j = int(line[0])-1, int(line[1])-1
-        matrix[i][j] = "G"
+        i, j = int(line[0]), int(line[1])
         lista_gp.append([i, j])
         distanze_gp[f"{i}_{j}"] = []
         gp_to_sp[f"{i}_{j}"] = []
@@ -81,11 +81,17 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
         line = file.readline().split(" ")
         i, j, points = int(line[0]), int(line[1]), int(line[2]) 
         silver_points[f"{i}_{j}"] = points
-        matrix[i][j] = "S"
         lista_sp.append([i, j])
         distanze_sp[f"{i}_{j}"] = []
 
     distanza_sp(lista_sp, distanze_sp)
+
+    som = 0
+
+    for key in silver_points:
+        som += silver_points[key]
+
+    print(som)
 
     costo_blocchi = {}
     disponibilita_blocchi = {}
@@ -117,12 +123,12 @@ def get_path(start, end):
     dx = 1 if x2 > x1 else -1
     dy = 1 if y2 > y1 else -1
     x, y = x1, y1
-    while x != x2 or y != y2:
+    while x != x2:
         path.append([x, y])
-        if x != x2:
-            x += dx
-        if y != y2:
-            y += dy
+        x += dx
+    while y != y2:
+        path.append([x, y])
+        y += dy
     path.append([x2, y2])
     return path
 
@@ -141,5 +147,11 @@ for element in return_list:
         continue
 
 
-
-print(realRET)
+for element in realRET:
+    if element in lista_gp: 
+        matrix[element[0]][element[1]] = "X"
+    elif element in lista_sp:
+        matrix[element[0]][element[1]] = "Y"
+    else:
+        matrix[element[0]][element[1]] = "-"
+print(matrix)
