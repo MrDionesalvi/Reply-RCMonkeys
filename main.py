@@ -1,4 +1,4 @@
-file_path = "input/01-comedy.txt"
+file_path = "input/02-sentimental.txt"
 
 
 tile_rules = {
@@ -62,11 +62,14 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
 
     matrix = [[" " for _ in range(H+1)] for _ in range(W+1)]
     print(len(matrix), " || ", len(matrix[0]))
+    matrix = [[" " for _ in range(H+1)] for _ in range(W+1)]
+    print(len(matrix), " || ", len(matrix[0]))
 
     lista_gp = []
     distanze_gp = {}
     for _ in range(GN):
         line = file.readline().split(" ")
+        i, j = int(line[0]), int(line[1])
         i, j = int(line[0]), int(line[1])
         lista_gp.append([i, j])
         distanze_gp[f"{i}_{j}"] = []
@@ -85,6 +88,13 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
         distanze_sp[f"{i}_{j}"] = []
 
     distanza_sp(lista_sp, distanze_sp)
+
+    som = 0
+
+    for key in silver_points:
+        som += silver_points[key]
+
+    print(som)
 
     som = 0
 
@@ -124,12 +134,12 @@ def get_path(start, end):
     dy = 1 if y2 > y1 else -1
     x, y = x1, y1
     while x != x2:
-        path.append([x, y])
+        path.append(["3", x, y])
         x += dx
     while y != y2:
-        path.append([x, y])
+        path.append(["C",x, y])
         y += dy
-    path.append([x2, y2])
+    path.append(["C", x2, y2])
     return path
 
 for i in range(len(PLIST) - 1):
@@ -139,7 +149,7 @@ for i in range(len(PLIST) - 1):
 bau = set()
 realRET = []
 for element in return_list:
-    miao = f"{element[0]}_{element[1]}"
+    miao = f"{element}"
     if not miao in bau:
         bau.add(miao)
         realRET.append(element)
@@ -147,11 +157,9 @@ for element in return_list:
         continue
 
 
-for element in realRET:
-    if element in lista_gp: 
-        matrix[element[0]][element[1]] = "X"
-    elif element in lista_sp:
-        matrix[element[0]][element[1]] = "Y"
-    else:
-        matrix[element[0]][element[1]] = "-"
-print(matrix)
+
+
+with open('output/output.txt', 'w') as file:
+    for i in realRET:
+        if [i[1], i[2]] not in lista_gp:
+            file.write(f"{i[0]} {i[1]} {i[2]}\n")
