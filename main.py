@@ -1,5 +1,17 @@
 file_path = "input/00-trailer.txt"
 
+
+def distanza_gp(lista_gp, diz):  #return = [gp_diverso, row_d, col_d, dista]
+    for i in range(len(lista_gp)-1):
+        for j in range(i+1, len(lista_gp)):
+            row_distance = abs(lista_gp[i][1] - lista_gp[j][1])
+            col_distance = abs(lista_gp[i][0] - lista_gp[j][0])
+            distance = row_distance + col_distance
+            diz[f"{lista_gp[i][0]}_{lista_gp[i][1]}"].append([f"{lista_gp[j][0]}_{lista_gp[j][1]}", row_distance, col_distance, distance])
+    
+            diz[f"{lista_gp[j][0]}_{lista_gp[j][1]}"].append([f"{lista_gp[i][0]}_{lista_gp[i][1]}", row_distance, col_distance, distance])
+
+
 with open(file_path, "r", encoding='utf-8-sig') as file:
     line = file.readline()
 
@@ -13,11 +25,17 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
 
     matrix = [[0 for _ in range(W)] for _ in range(H)]
 
-
+    lista_gp = []
+    distanze_gp = {}
     for _ in range(GN):
         line = file.readline().split(" ")
         i, j = int(line[0])-1, int(line[1])-1
         matrix[i][j] = "G"
+        lista_gp.append([i, j])
+        distanze_gp[f"{i}_{j}"] = []
+
+    distanza_gp(lista_gp, distanze_gp)
+    print(distanze_gp)
 
     silver_points = {}
 
@@ -40,4 +58,10 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
 
 
 
+
+distanza_gp()
+
+
+print(distanze_gp)
     
+        
