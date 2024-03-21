@@ -19,3 +19,25 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
         i, j = int(line[0])-1, int(line[1])-1
         matrix[i][j] = "G"
 
+    silver_points = {}
+
+    for _ in range(SM):
+        line = file.readline().split(" ")
+        i, j, points = int(line[0])-1, int(line[1])-1, int(line[2]) 
+        silver_points[f"{i}_{j}"] = points
+        matrix[i][j] = "S"
+
+    costo_blocchi = {}
+    disponibilita_blocchi = {}
+
+    for _ in range(TL):
+        line = file.readline().split(" ")
+        i = line[0]
+        costo = int(line[1])
+        disponibile = int(line[2])
+        costo_blocchi[i] = costo
+        disponibilita_blocchi[i] = disponibile
+
+
+
+    
