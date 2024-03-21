@@ -28,16 +28,16 @@ def distanza_gp(lista_gp, diz):  #return = [gp_diverso, row_d, col_d, dista]
             distance = row_distance + col_distance
             diz[f"{lista_gp[i][0]}_{lista_gp[i][1]}"].append([f"{lista_gp[j][0]}_{lista_gp[j][1]}", row_distance, col_distance, distance])
     
-            diz[f"{lista_gp[j][0]}_{lista_gp[j][1]}"].append([f"{lista_gp[i][0]}_{lista_gp[i][1]}", row_distance, col_distance, distance])
+            diz[f"{lista_gp[j][0]}_{lista_gp[j][1]}"].append([f"{lista_gp[i][0]}_{lista_gp[i][1]}", -row_distance, -col_distance, distance])
 
 def distanza_sp(lista_sp, diz):
     for i in range(len(lista_sp)-1):
         for j in range(i+1, len(lista_sp)):
-            row_distance = abs(lista_sp[i][1] - lista_sp[j][1])
-            col_distance = abs(lista_sp[i][0] - lista_sp[j][0])
+            row_distance = lista_sp[i][1] - lista_sp[j][1]
+            col_distance = lista_sp[i][0] - lista_sp[j][0]
             distance = row_distance + col_distance
             diz[f"{lista_sp[i][0]}_{lista_sp[i][1]}"].append([f"{lista_sp[j][0]}_{lista_sp[j][1]}", row_distance, col_distance, distance])
-            diz[f"{lista_sp[j][0]}_{lista_sp[j][1]}"].append([f"{lista_sp[i][0]}_{lista_sp[i][1]}", row_distance, col_distance, distance])
+            diz[f"{lista_sp[j][0]}_{lista_sp[j][1]}"].append([f"{lista_sp[i][0]}_{lista_sp[i][1]}", -row_distance, -col_distance, distance])
 
 def distanza_gp_to_sp(GPLIST, SPLIST, diz):
     for gp in range(len(GPLIST)):
@@ -45,7 +45,7 @@ def distanza_gp_to_sp(GPLIST, SPLIST, diz):
             row_distance = abs(GPLIST[gp][1] - SPLIST[sp][1])
             col_distance = abs(GPLIST[gp][0] - SPLIST[sp][0])
             distance = row_distance + col_distance
-            diz[f"{GPLIST[gp][0]}_{GPLIST[gp][1]}"].append([f"{SPLIST[sp][0]}_{SPLIST[sp][1]}", row_distance, col_distance, disponibile])
+            diz[f"{GPLIST[gp][0]}_{GPLIST[gp][1]}"].append([f"{SPLIST[sp][0]}_{SPLIST[sp][1]}", row_distance, col_distance, distance])
 
 
 with open(file_path, "r", encoding='utf-8-sig') as file:
@@ -100,5 +100,5 @@ with open(file_path, "r", encoding='utf-8-sig') as file:
 
     distanza_gp_to_sp(lista_gp, lista_sp, gp_to_sp)
 
-print(gp_to_sp)
+print(distanze_gp)
     
