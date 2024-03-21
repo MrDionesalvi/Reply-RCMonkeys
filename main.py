@@ -17,3 +17,5 @@ print(f"H: {H}")
 print(f"GN: {GN}")
 print(f"SM: {SM}")
 print(f"TL: {TL}")
+
+matrix = [[0 for _ in range(W)] for _ in range(H)]
