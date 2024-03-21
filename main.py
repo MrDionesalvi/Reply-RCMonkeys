@@ -1,6 +1,25 @@
 file_path = "input/00-trailer.txt"
 
 
+tile_rules = {
+    1: [(0, -1)],  # From up to down
+    2: [(1, 0)],   # From left to right
+    3: [(0, 1)],   # From down to up
+    4: [(0, -1), (1, 0), (0, 1)],   # From up to down, From left to right, From down to up
+    5: [(-1, 1)],  # From down-left to up-right
+    6: [(1, 1), (-1, 0)],   # From down-right to up-left, From left to right
+    7: [(-1, 0)],  # From right to left
+    8: [(-1, 0), (1, 1)],   # From right to left, From down-left to up-right
+    9: [(1, -1)],  # From up-left to down-right
+    10: [(0, 1), (0, -1)],   # From down to up, From up to down
+    11: [(1, 0), (0, 1)],   # From left to right, From down to up
+    12: [(0, 1), (1, -1), (1, 1)],   # From down to up, From up-left to down-right, From down-right to up-left
+    13: [(-1, 0), (0, -1), (0, 1)],   # From right to left, From up to down, From down to up
+    14: [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, 1)]   # From left to right, From down to up, From right to left, From up to down, From down-right to up-left, From down-left to up-right
+}
+
+
+
 def distanza_gp(lista_gp, diz):  #return = [gp_diverso, row_d, col_d, dista]
     for i in range(len(lista_gp)-1):
         for j in range(i+1, len(lista_gp)):
